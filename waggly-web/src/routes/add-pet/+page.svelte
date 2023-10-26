@@ -16,33 +16,33 @@
       </NavUl>
     </Navbar>
     <h1 class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Register a Pet</h1>
-    <form method="POST" action="?/register-pet">
+    <form method="POST" action="?/registerPet">
       <div class="mb-6">
         <Label>Pet Name</Label>
-        <Input id="pet-name"/>
+        <Input name="pet-name"/>
       </div>
       <div class="mb-6">
         <Label>Pet Age</Label>
-        <Input id="pet-age"/>
+        <Input name="pet-age"/>
       </div>
       <div class="mb-6">
         <Label>Pet Owner Name</Label>
-        <Input id="pet-owner-name"/>
+        <Input name="pet-owner-name"/>
       </div>
       <div class="mb-6">
         <Label>Pet Owner Email</Label>
-        <Input id="pet-owner-email"/>
+        <Input name="pet-owner-email"/>
       </div>
       <div class="mb-6">
         <Label>Pet Owner Contact Number</Label>
-        <Input id="pet-owner-contact-number"/>
+        <Input name="pet-owner-contact-number"/>
       </div>
       <div class="mb-6">
         <Label>Pet Owner Address</Label>
-        <Input id="pet-owner-address"/>
+        <Input name="pet-owner-address"/>
       </div>
       <div>
-        <Button color="purple" formaction="?/register-pet">Submit</Button>
+        <Button type="submit" color="purple">Submit</Button>
       </div>
     </form>
 </div>
