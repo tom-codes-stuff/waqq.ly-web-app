@@ -5,8 +5,8 @@
 <div class="p-8">
   <Navbar  >
       <NavBrand href="/">
-        <!-- <img src="/images/flowbite-svelte-icon-logo.svg" class="mr-3 h-6 sm:h-9" alt="Wagg.ly Logo" /> -->
-        <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Wagg.ly</span>
+        <img src="/src/images/waggly-logo.jpeg" class="h-20 w-20" alt="Wagg.ly Logo" />
+        <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white pl-5">Wagg.ly</span>
       </NavBrand>
       <NavHamburger  />
       <NavUl >
@@ -43,6 +43,7 @@
       </div>
       <div>
         <Button type="submit" color="purple">Submit</Button>
+        <Button href="/" color="purple">Back</Button>
       </div>
     </form>
 </div>
