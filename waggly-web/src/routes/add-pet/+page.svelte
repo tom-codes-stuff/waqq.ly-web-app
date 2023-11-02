@@ -43,7 +43,7 @@
       </div>
       <div>
         <Button type="submit" color="purple">Submit</Button>
-        <Button href="/" color="purple">Back</Button>
+        <Button href="/" color="red">Back</Button>
       </div>
     </form>
 </div>
