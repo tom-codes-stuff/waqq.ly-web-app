@@ -7,7 +7,7 @@ export const actions = {
 
     console.log(formattedData);
 
-    fetch("http://localhost:3000/test", {
+    fetch("http://localhost:3001/post-walkers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: formattedData,
