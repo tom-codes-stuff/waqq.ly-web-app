@@ -31,6 +31,45 @@ resource "azurerm_service_plan" "waqqly-api-service-plan" {
   sku_name            = "B1"
 }
 
+resource "azurerm_linux_web_app" "waqqly-api" {
+  name                = "waqqly-api-service"
+  location            = azurerm_resource_group.waqqly-group.location
+  resource_group_name = azurerm_resource_group.waqqly-group.name
+  service_plan_id = azurerm_service_plan.waqqly-api-service-plan.id
+
+  site_config {
+    application_stack {
+      docker_image_name = "waqqly-api"
+      docker_registry_url = "https://${azurerm_container_registry.acr.login_server}"
+      docker_registry_username = azurerm_container_registry.acr.admin_username
+      docker_registry_password = azurerm_container_registry.acr.admin_password
+    }
+  }
+
+  app_settings = {
+    "DOCKER_ENABLE_CI" = true
+    "WEBSITES_ENABLE_APP_SERVICE" = false
+    "WEBSITES_PORT" = 3001
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+}
+
+resource "azurerm_container_registry_webhook" "waqqly-api-webhook" {
+  name                = "waqqlyApi"
+  resource_group_name = azurerm_resource_group.waqqly-group.name
+  registry_name       = azurerm_container_registry.acr.name
+  location            = azurerm_resource_group.waqqly-group.location
+
+  service_uri = "https://${azurerm_linux_web_app.waqqly-api.site_credential.0.name}:${azurerm_linux_web_app.waqqly-api.site_credential.0.password}@${azurerm_linux_web_app.waqqly-api.name}.scm.azurewebsites.net/api/registry/webhook"
+  status      = "enabled"
+  scope       = "waqqly-api:latest"
+  actions     = ["push"]
+}
+
 resource "azurerm_linux_web_app" "waqqly-app" {
   name                = "waqqly-app-service"
   location            = azurerm_resource_group.waqqly-group.location
@@ -59,7 +98,7 @@ resource "azurerm_linux_web_app" "waqqly-app" {
 }
 
 resource "azurerm_container_registry_webhook" "waqqly-app-webhook" {
-  name                = "waqqly-app"
+  name                = "waqqlyApp"
   resource_group_name = azurerm_resource_group.waqqly-group.name
   registry_name       = azurerm_container_registry.acr.name
   location            = azurerm_resource_group.waqqly-group.location
@@ -70,44 +109,7 @@ resource "azurerm_container_registry_webhook" "waqqly-app-webhook" {
   actions     = ["push"]
 }
 
-resource "azurerm_linux_web_app" "waqqly-api" {
-  name                = "waqqly-api-service"
-  location            = azurerm_resource_group.waqqly-group.location
-  resource_group_name = azurerm_resource_group.waqqly-group.name
-  service_plan_id = azurerm_service_plan.waqqly-api-service-plan.id
 
-  site_config {
-    application_stack {
-      docker_image_name = "waqqly-api"
-      docker_registry_url = "https://${azurerm_container_registry.acr.login_server}"
-      docker_registry_username = azurerm_container_registry.acr.admin_username
-      docker_registry_password = azurerm_container_registry.acr.admin_password
-    }
-  }
-
-  app_settings = {
-    "DOCKER_ENABLE_CI" = true
-    "WEBSITES_ENABLE_APP_SERVICE" = false
-    "WEBSITES_PORT" = 3000
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-}
-
-resource "azurerm_container_registry_webhook" "waqqly-api-webhook" {
-  name                = "waqqly-api"
-  resource_group_name = azurerm_resource_group.waqqly-group.name
-  registry_name       = azurerm_container_registry.acr.name
-  location            = azurerm_resource_group.waqqly-group.location
-
-  service_uri = "https://${azurerm_linux_web_app.waqqly-api.site_credential.0.name}:${azurerm_linux_web_app.waqqly-api.site_credential.0.password}@${azurerm_linux_web_app.waqqly-api.name}.scm.azurewebsites.net/api/registry/webhook"
-  status      = "enabled"
-  scope       = "waggly-api:latest"
-  actions     = ["push"]
-}
 
 resource "azurerm_cosmosdb_account" "db" {
   name                = "waqqly-dbv1"

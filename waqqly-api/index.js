@@ -33,7 +33,7 @@ app.post("/post-pets", jsonParser, async (req, res, next) => {
 app.get("/get-walkers", async (req, res, next) => {
   await MongoDBClient.connect();
   const db = MongoDBClient.db("waqqly-db");
-  const collection = db.collection("walker");
+  const collection = db.collection("walkers");
   const result = await collection.find({}).toArray();
 
   res.json(result);
