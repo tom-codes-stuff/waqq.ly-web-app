@@ -5,6 +5,7 @@
     export let data;
 
     let rows = data.walkers
+    console.log(rows)
 
 </script>
 
