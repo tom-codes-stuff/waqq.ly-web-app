@@ -1,20 +1,10 @@
 <script>
-    import { Button, Label, Input, Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+    import { Button, Label, Input } from 'flowbite-svelte';
+    import WaqqlyNavBar from '../../components/WaqqlyNavBar.svelte';
 </script>
   
   <div class="p-8">
-    <Navbar  >
-        <NavBrand href="/">
-          <img src="/src/images/waggly-logo.jpeg" class="h-20 w-20" alt="Wagg.ly Logo" />
-          <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white pl-5">Wagg.ly</span>
-        </NavBrand>
-        <NavHamburger  />
-        <NavUl >
-          <NavLi href="/">Home</NavLi>
-          <NavLi href="/add-pet">Register a Pet</NavLi>
-          <NavLi href="/add-walker">Register a Walker</NavLi>
-        </NavUl>
-      </Navbar>
+    <WaqqlyNavBar/>
       <h1 class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Register a Walker</h1>
       <form method="POST" action="?/registerWalker">
           <div class="mb-6">
