@@ -73,7 +73,10 @@ Now Podman is ready to be used and the container images can be built. This is do
 
 Navigate between the two repositories using the same terminal session to avoid having to reauthenticate with Azure.
 
-Authenticate with Azure : `az login`
+Podman needs to be authenticated to be able to push images to the container registry, two steps are required to do this:
+
+1. Run `az login` to authenticate with Azure
+2. Run `podman login waqqlyapp.azure.io` to authenticate Podman with Azure - this will ask for a username & password, these are found on the container registry in Azure.
 
 `waqqly-web`
 
@@ -83,7 +86,7 @@ Authenticate with Azure : `az login`
 
 `waqqly-api`
 
-1. Run `DB_CONNECTION=(az cosmosdb keys list --name waqqly-dbv1 --resource-group waqqly-app --type connection-strings --query 'connectionStrings[0].connectionString')` - this obtains the CosmosDB connection string.
+1. Run `DB_CONNECTION=$(az cosmosdb keys list --name waqqly-dbv1 --resource-group waqqly-app --type connection-strings --query 'connectionStrings[0].connectionString' --output tsv)` - this obtains the CosmosDB connection string.
 2. Run `podman build -t waqqlyapp.azurecr.io/waqqly-api:latest --build-arg DB_URL=$DB_CONNECTION .` - this builds the container image.
 3. Run `podman login waqqlyapp.azurecr.io` - this authenticates Podman with the container registry in Azure.
 4. Run `podman push waqqlyapp.azurecr.io/waqqly-api:latest` - this pushes the container image to the registry in Azure.

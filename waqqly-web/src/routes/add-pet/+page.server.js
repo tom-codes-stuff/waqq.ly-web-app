@@ -1,14 +1,14 @@
-import { env } from "$env/dynamic/private";
+import { API_URL } from "$env/static/private";
 export const actions = {
   registerPet: async ({ request }) => {
-    const recievedFormData = await request.formData();
+    const receivedFormData = await request.formData();
     let tmpObject = {};
-    recievedFormData.forEach((value, key) => (tmpObject[key] = value));
+    receivedFormData.forEach((value, key) => (tmpObject[key] = value));
     let formattedData = JSON.stringify(tmpObject);
 
     console.log(formattedData);
 
-    fetch(`${env.API_URL}/post-pets`, {
+    fetch(`${API_URL}/post-pets`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: formattedData,
