@@ -6,7 +6,7 @@ require("dotenv").config();
 const jsonParser = bodyParser.json();
 const app = express();
 
-const MongoDBClient = new MongoClient(process.env.URL);
+const MongoDBClient = new MongoClient(process.env.DB_URL);
 
 app.listen(3001, () => {
   console.log("Server running on port 3001");

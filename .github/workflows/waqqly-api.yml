@@ -1,28 +1,28 @@
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 name: Build_Waqqly_API
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-        - name: 'Checkout GitHub Action'
-          uses: actions/checkout@main
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Obtain the latest version of actions"
+        uses: actions/checkout@main
 
-        - name: 'Login via Azure CLI'
-          uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: "Authenticate with Azure"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: 'Build and push image'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-            username: ${{ secrets.REGISTRY_USERNAME }}
-            password: ${{ secrets.REGISTRY_PASSWORD }}
-        - run: |
-            cd ./waqqly-api
-            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-api:latest .
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-api:latest
+      - name: "Build and push the Waqq.ly image to ACR"
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          cd ./waqqly-api
+          docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-api:latest --build-arg DB_URL=${{ secrets.DB_URL}}.
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-api:latest
