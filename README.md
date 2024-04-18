@@ -20,7 +20,7 @@ This section details how to deploy the Waqq.ly application to a Azure environmen
 
 The initial step in deploying the Waqq.ly application is to deploy the infrastructure which will host the application. The infrastructure consists of **12** resources.
 
-1. Navigate to the deployment directory within this repository.
+1. Navigate to the `deployment` directory within this repository.
 2. Run `terraform init` - this will initial Terraform within this directory.
 3. Run `az login` - this will authenticate the Terminal session with your Azure account.
 4. Run `terraform plan` - this confirms how the infrastructure will deployed and establish we have connectivity to the correct Azure account.
