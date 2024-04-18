@@ -1,3 +1,4 @@
+import { env } from "$env/dynamic/private";
 export const actions = {
   registerPet: async ({ request }) => {
     const recievedFormData = await request.formData();
@@ -7,7 +8,7 @@ export const actions = {
 
     console.log(formattedData);
 
-    fetch("http://localhost:3001/post-pets", {
+    fetch(`${env.API_URL}/post-pets`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: formattedData,

@@ -1,3 +1,4 @@
+import { env } from "$env/dynamic/private";
 export const actions = {
   registerWalker: async ({ request }) => {
     const recievedFormData = await request.formData();
@@ -7,7 +8,7 @@ export const actions = {
 
     console.log(formattedData);
 
-    fetch("http://localhost:3001/post-walkers", {
+    fetch(`${env.API_URL}/post-walkers`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: formattedData,

@@ -1,5 +1,6 @@
+import { env } from "$env/dynamic/private";
 export async function load({ fetch }) {
-  const response = await fetch("http://localhost:3001/get-pets");
+  const response = await fetch(`${env.API_URL}/get-pets`);
 
   return {
     pets: await response.json(),
