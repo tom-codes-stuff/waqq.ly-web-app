@@ -23,6 +23,6 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          cd ./waggly-web
+          cd ./waqqly-web
           docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-app:latest . 
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/waqqly-app:latest
