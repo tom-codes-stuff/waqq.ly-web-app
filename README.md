@@ -94,3 +94,31 @@ Podman needs to be authenticated to be able to push images to the container regi
 ## Destruction
 
 Once the prototype has come to the end of its lifecycle, the entire environment can be destroyed by running `terraform destroy` from the `deployment` directory. This will 'destroy' all the resources created, reducing the risk of a spike in the cloud bill.
+
+## Local Execution
+
+A local version of this application may be required for troubleshooting and debugging purposes. In this case, the application can be ran locally on a developer's machine.
+
+### Pre-requisites
+
+There is **one** pre-requisite, that being the database. The MongoDB database must be deployed to successfully run the API locally, due to its dependency on database connectivity.
+
+The steps from `Deploying the Infrastructure` above should be followed.
+
+Alternatively, a local or hosted version (away from Azure) of MongoDB can be used - replacing the `DB_URL` (mentioned below) with the connection URL of the local/hosted database.
+
+### Local Setup
+
+The following steps are required to successfully run the application locally.
+
+1. This repository must be cloned to the local device `git clone ...`
+2. Once cloned, create two terminal windows within the `waqqly-web` and `waqqly-api` directories
+3. Next, run `npm install` in both of these directories
+4. Then on the `waqqly-api` directory, create a file called `.env` in the root of the directory - this will provide the database url to the API.
+5. After that, open the `.env` file and add the following content - replacing `<URL>` with the URL of the database connection string (steps to get the database URL are `Configuring Github Actions`)
+
+```
+DB_URL = "<URL>"
+```
+
+6. Finally, `npn run dev` can be ran on both directories (`waqqly-web` & `waqqly-api`). The application will be available at [http://localhost:8080](http://localhost:8080)
